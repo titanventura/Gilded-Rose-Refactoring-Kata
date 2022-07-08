@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.GildedRoseStrategy;
+
 class GildedRose {
     Item[] items;
 
@@ -7,7 +9,7 @@ class GildedRose {
         this.items = items;
     }
 
-    public void updateQuality() {
+    public void updateQualityOld() {
         for (int i = 0; i < items.length; i++) {
             if (!items[i].name.equals("Aged Brie")
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
@@ -49,7 +51,7 @@ class GildedRose {
                             }
                         }
                     } else {
-                        items[i].quality = items[i].quality - items[i].quality;
+                        items[i].quality = 0;
                     }
                 } else {
                     if (items[i].quality < 50) {
@@ -57,6 +59,12 @@ class GildedRose {
                     }
                 }
             }
+        }
+    }
+
+    public void updateQuality() {
+        for (Item item : items) {
+            new GildedRoseStrategy().applyOn(item);
         }
     }
 }
